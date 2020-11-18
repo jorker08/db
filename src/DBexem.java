@@ -13,7 +13,7 @@ public class DBexem {
 		String driver = "com.mysql.cj.jdbc.Driver";
 		
 		//dbms 정보
-		String url = "jdbc:mysql;//localhost;3306/t1?serverTimeZone=UTC";
+		String url = "jdbc:mysql://localhost:3306/t1?serverTimeZone=UTC";
 		
 		//사용자 계정
 		String user = "sbsst";
