@@ -10,7 +10,7 @@ public class Article {
 	public Article() {
 
 	}
-
+	
 	public Article(int id, String title, String nickname, String body, String regDate, int hit) {
 		this.id = id;
 		this.title = title;
@@ -67,6 +67,8 @@ public class Article {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+	
 
 
 }
