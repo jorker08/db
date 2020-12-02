@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ArticleDao {
-	private DBUtil db = new DBUtil();
+private DBUtil db = new DBUtil();
 	
 	public ArrayList<Article> getArticles() {
 		String sql = "select * from article";
@@ -31,5 +31,10 @@ public class ArticleDao {
 	public Article getArticleById(int aid) {
 		String sql = "select * from article where id = ?";
 		return db.getRow(sql, aid);
+	}
+	
+	public int insertReply(int aid, String body) {
+		String sql = "insert into reply set aid = ?, body = ?, writer = '익명', regDate = NOW()";
+		return db.updateQuery(sql, aid, body);
 	}
 }

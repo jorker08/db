@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DBUtil {
-
-	
-		// 드라이버 정보
+	// 드라이버 정보
 		String driver = "com.mysql.cj.jdbc.Driver";
 		// dbms 주소p
 		String url = "jdbc:mysql://localhost:3306/t1?serverTimezone=UTC";
@@ -19,7 +17,7 @@ public class DBUtil {
 		String pass = "sbs123414";
 
 		Connection conn = null;
-		
+
 		public PreparedStatement getPrepareStatement(String sql, Object[] params) throws SQLException {
 			PreparedStatement pstmt = null;
 			conn = getConnection();
@@ -36,10 +34,11 @@ public class DBUtil {
 			return pstmt;
 		}
 
-		public ArrayList<Article> getRows(String sql, Object...params) {
-			if(params.length != 0 && params[0] instanceof Object[]) {
-				params = (Object[])params[0];
+		public ArrayList<Article> getRows(String sql, Object... params) {
+			if (params.length != 0 && params[0] instanceof Object[]) {
+				params = (Object[]) params[0];
 			}
+
 			ArrayList<Article> articles = new ArrayList<>();
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -73,17 +72,24 @@ public class DBUtil {
 			return articles;
 		}
 
-		public Article getRow(String sql, Object...params) {
-			return getRows(sql, params).get(0);
-		}
-		public int updateQuery(String sql, Object... params) {
-			if(params.length != 0 && params[0] instanceof Object[]) {
-				params = (Object[])params[0];
+		public Article getRow(String sql, Object... params) {
+			Article article = null;
+
+			if (getRows(sql, params).size() != 0) {
+				article = getRows(sql, params).get(0);
 			}
-			
+
+			return article;
+		}
+
+		public int updateQuery(String sql, Object... params) {
+			if (params.length != 0 && params[0] instanceof Object[]) {
+				params = (Object[]) params[0];
+			}
+
 			int rst = 0;
 			PreparedStatement pstmt = null;
-			
+
 			try {
 				System.out.println(sql);
 				pstmt = getPrepareStatement(sql, params);
@@ -94,7 +100,6 @@ public class DBUtil {
 			} finally {
 				close(pstmt, conn);
 			}
-			System.out.println(rst);
 			return rst;
 		}
 
@@ -115,30 +120,30 @@ public class DBUtil {
 		}
 
 		public void close(ResultSet rs, PreparedStatement pstmt, Connection conn) {
-				
+
 			try {
 				if (rs != null) {
 					rs.close();
 				}
-				close(pstmt, conn);			
-			} catch(SQLException e) {
+				close(pstmt, conn);
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		public void close(PreparedStatement pstmt, Connection conn) {
 
-			try {			
+			try {
 				if (pstmt != null) {
 					pstmt.close();
 				}
 				if (conn != null) {
 					conn.close();
 				}
-			} catch(SQLException e) {
+			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 
 
